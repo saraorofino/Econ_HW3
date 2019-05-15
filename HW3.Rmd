@@ -26,21 +26,90 @@ Create a linear probility model that predicts a respondent's probability of voti
 ```{r, include=FALSE}
 # Votes: 1 = "yes", 0 = "no" - use binomial logistic regression 
 
-whales_blr <- glm(vote ~ age + income + NEP + bid + risk, family = "binomial", data = whales)
-summary(whales_blr)
+whales_lm <- lm(vote ~ age + income + NEP + bid + risk, data = whales)
+summary(whales_lm)
 
-int <- whales_blr$coefficients[1]
-age_50 <- whales_blr$coefficients[2]
-age_40 <- whales_blr$coefficients[3]
-age_60 <- whales_blr$coefficients[4]
-age_30 <- whales_blr$coefficients[5]
-inc_one <- whales_blr$coefficients[6]
-inc_poor <- whales_blr$coefficients[7]
-inc_rich <- whales_blr$coefficients[8]
-inc_veryrich <- whales_blr$coefficients[9]
-nep <- whales_blr$coefficients[10]
-bid <- whales_blr$coefficients[11]
-risk <- whales_blr$coefficients[12]
+int <- whales_lm$coefficients[1]
+age_50 <- whales_lm$coefficients[2]
+age_40 <- abs(whales_lm$coefficients[3])
+age_60 <- abs(whales_lm$coefficients[4])
+age_30 <- whales_lm$coefficients[5]
+inc_one <- whales_lm$coefficients[6]
+inc_poor <- whales_lm$coefficients[7]
+inc_rich <- whales_lm$coefficients[8]
+inc_veryrich <- whales_lm$coefficients[9]
+nep <- whales_lm$coefficients[10]
+bid <- abs(whales_lm$coefficients[11])
+risk <- whales_lm$coefficients[12]
 ```
 Regression Model:  
-$Logodds(Yes~Vote) = `r int` + `r age_30`(Age~to~30) + `r age_40`(Age~to~40) + `r age_50`(Age~to~50) + `r age_60`(Age~to~60) + `r inc_one`(Income~One~Percent) + `r inc_poor`(Income~Poor) + `r inc_rich`(Income~Rich) + `r inc_veryrich`(Income~Very~Rich) + `r nep`(NEP) + `r bid`(Bid) + `r risk`(Risk~Reduction)$
+  
+$Logodds(Voting~Yes) = `r round(int, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) - `r round(age_40, digits=4)`(Age~to~40) + `r round(age_50, digits=4)`(Age~to~50) - `r round(age_60, digits=4)`(Age~to~60) + `r round(inc_one, digits=4)`(Income~One~Percent) + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(inc_veryrich,digits=4)`(Income~Very~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(Risk~Reduction)$
+
+**Coefficient Interpretation:**  
+*Age:*    
+  - to 30:   
+  - to 40:   
+  - to 50:   
+  - to 60:   
+*Income:*   
+  - One Percent:  
+  - Poor:  
+  - Rich:  
+  - Very Rich:  
+*NEP:*    
+*Bid:*    
+*Risk:*    
+
+###2. Value of Prevented Whale Deaths  
+
+
+###3. Estimated Willingness to Pay for a Vessel Speed Reduction Program  
+
+####a.Choose three participants at random
+Using a random number generator select three participants      
+- 38  
+- 44 
+- 102
+
+```{r, include=FALSE}
+# Subset of data for 60% VSR program 
+whale_60 <- whales %>%
+  filter(risk == 60)
+
+# Randomly select three integers between 1 and 106 without replacement 
+
+sample(1:106, 3, replace = FALSE)
+
+# Outcome - 38, 102, 44
+
+# Create new dataframe with the random respondents information
+vsr60_rand1 <- whale_60 %>% 
+  slice(38,44,102)
+ 
+
+```
+
+###b. Create a regression model to predict willingness to pay for 60% VSR program  
+
+```{r, include = FALSE}
+vsr60_lm <- lm(bid ~ NEP + income + age, data = whale_60)
+summary(vsr60_lm)
+
+
+int_60 <- vsr60_lm$coefficients[1]
+nep_60 <- abs(vsr60_lm$coefficients[2])
+inc_one_60 <- vsr60_lm$coefficients[3]
+inc_poor_60 <- abs(vsr60_lm$coefficients[4])
+inc_rich_60 <- vsr60_lm$coefficients[5]
+inc_veryrich_60 <- vsr60_lm$coefficients[6]
+age_50_60 <- abs(vsr60_lm$coefficients[7])
+age_40_60 <- abs(vsr60_lm$coefficients[8])
+age_60_60 <- abs(vsr60_lm$coefficients[9])
+age_30_60 <- vsr60_lm$coefficients[10]
+
+```
+
+Model for estimating willingness to pay:  
+
+$Bid = 
