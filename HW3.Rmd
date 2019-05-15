@@ -1,0 +1,46 @@
+---
+title: "ESM 204 Assignment 3"
+author: "Jeremy Knox, Sara Orofino"
+date: "5/15/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE, message=FALSE, warning=FALSE}
+
+# Packages
+library(tidyverse)
+
+
+# Read in data 
+whales <- read_csv("HW3Data.csv")
+```
+
+###1. Linear Probability Model 
+
+Create a linear probility model that predicts a respondent's probability of voting "yes" on the ballot based on their age, income, NEP score, the program's risk reduction, and cost of the program to that respondent.  
+
+```{r, include=FALSE}
+# Votes: 1 = "yes", 0 = "no" - use binomial logistic regression 
+
+whales_blr <- glm(vote ~ age + income + NEP + bid + risk, family = "binomial", data = whales)
+summary(whales_blr)
+
+int <- whales_blr$coefficients[1]
+age_50 <- whales_blr$coefficients[2]
+age_40 <- whales_blr$coefficients[3]
+age_60 <- whales_blr$coefficients[4]
+age_30 <- whales_blr$coefficients[5]
+inc_one <- whales_blr$coefficients[6]
+inc_poor <- whales_blr$coefficients[7]
+inc_rich <- whales_blr$coefficients[8]
+inc_veryrich <- whales_blr$coefficients[9]
+nep <- whales_blr$coefficients[10]
+bid <- whales_blr$coefficients[11]
+risk <- whales_blr$coefficients[12]
+```
+Regression Model:  
+$Logodds(Yes~Vote) = `r int` + `r age_30`(Age~to~30) + `r age_40`(Age~to~40) + `r age_50`(Age~to~50) + `r age_60`(Age~to~60) + `r inc_one`(Income~One~Percent) + `r inc_poor`(Income~Poor) + `r inc_rich`(Income~Rich) + `r inc_veryrich`(Income~Very~Rich) + `r nep`(NEP) + `r bid`(Bid) + `r risk`(Risk~Reduction)$
