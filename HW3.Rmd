@@ -63,6 +63,57 @@ $Probability(Voting~Yes) = `r round(int, digits = 4)` + `r round(age_30, digits=
 
 ###2. Value of Prevented Whale Deaths  
 
+Reducing the risk of whale strikes by 20% saves five whales every year. Based on this, the vessel speed reduction by 4% saves a single whale every year. To find the value of each individual whale saved find the willingess to pay for vessel speed reduction programs of 0% and compare to the willingness to pay for vessel speed reduction of 4%.     
+
+
+**Risk Reduction 0%**  
+Assume the probability of voting yes is the average of the votes ($p = 0.714$), assume an age to 30, income rich, and the average NEP (38.366), solve for the willingness to pay for the program using:
+
+$0.714 = `r round(int, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(0)$
+
+
+```{r, include=FALSE}
+# Find the average of the yes votes:
+
+avg_vote <- mean(whales$vote)
+
+# Find the average of the NEP:
+
+nep_avg <- mean(whales$NEP)
+
+# Find the bid if risk reduction is zero:
+bid_zero <- (int + age_30 + inc_rich + (nep*nep_avg) + (risk*0) - avg_vote)/bid
+
+```
+
+$Willingness~to~Pay = `r round(bid_zero, digits=4)`$    
+
+**Risk Reduction 4%**  
+Again, assume the probability of voting yes is the average of the votes ($p = 0.714$), assume an age to 30, income rich, and the average NEP (38.366), solve for the willingness to pay for the program using:  
+
+$0.714 = `r round(int, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(4)$  
+
+
+```{r, include=FALSE}
+
+# Find bid if risk reduction is four:  
+
+bid_four <- (int + age_30 + inc_rich + (nep*nep_avg) + (risk*4) - avg_vote)/bid
+
+```
+
+$Willingness~to~Pay = `r round(bid_four, digits=4)`$ 
+
+The value of a single whale is the difference between the willingness to pay for a vessel speed reduction program at 4% and at 0%.  
+
+```{r, include = FALSE}
+
+value <- bid_four - bid_zero
+
+```
+
+$Individual~Whale~Value = `r round(value, digits=4)`$  
+
 
 ###3. Estimated Willingness to Pay for a Vessel Speed Reduction Program  
 
@@ -92,27 +143,27 @@ vsr60_rand1 <- whale_60 %>%
 
 ###b. Predict willingness to pay for 60% VSR program  
 
-Assume the probability of voting yes is 100%, calculate the willingness to pay using the following equations:      
+Assume the probability of voting yes the average of all the yes votes ($p = 0.714$), calculate the willingness to pay using the following equations:      
 
 Individual 38:  
-$1 = `r round(int, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(0.60)$
+$`r avg_vote` = `r round(int, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$
 
 Individual 44:  
-$1 = `r round(int, digits = 4)` - `r round(age_40, digits=4)`(Age~to~40) + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(0.60)$  
+$`r avg_vote` = `r round(int, digits = 4)` - `r round(age_40, digits=4)`(Age~to~40) + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$  
 
 Individual 122:  
-$1 = `r round(int, digits = 4)`- `r round(age_60, digits=4)`(Age~to~60) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid)+ `r round(risk, digits=4)`(0.60)$  
+$`r avg_vote` = `r round(int, digits = 4)`- `r round(age_60, digits=4)`(Age~to~60) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid)+ `r round(risk, digits=4)`(60)$  
 
 
 ```{r, include = FALSE}
 
 # Plug the values for randoms into the linear regression and solve for bid 
 
-bid_38 <- (int+age_30+inc_rich+(nep*32)+(risk*0.60)-1)/bid
+bid_38 <- (int+age_30+inc_rich+(nep*32)+(risk*60)-avg_vote)/bid
 
-bid_44 <- (int+age_40+inc_poor+(nep*51)+(risk*0.60)-1)/bid
+bid_44 <- (int+age_40+inc_poor+(nep*51)+(risk*60)-avg_vote)/bid
 
-bid_122 <- (int+age_60+(nep*51)+(risk*0.60)-1)/bid
+bid_122 <- (int+age_60+(nep*51)+(risk*60)-avg_vote)/bid
 ```
 
 Individual 38:  
@@ -127,18 +178,18 @@ $Willingness~to~Pay = `r round(abs(bid_122), digits=4)`$
 
 ###4. Santa Barbara Estimated Willingness to Pay for VSR Program   
 
-Again assume the probability of voting yes is 100%, calculate the willingness to pay using:  
+Again assume the probability of voting yes the average of voting yes ($p = 0.714$). Use the average income bracket (middle), the average age bracket (to 50), and average NEP (38.366) to calculate willingness to pay using: 
 
-$1 = `r round(int, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) - `r round(age_40, digits=4)`(Age~to~40) + `r round(age_50, digits=4)`(Age~to~50) - `r round(age_60, digits=4)`(Age~to~60) + `r round(inc_one, digits=4)`(Income~One~Percent) + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(inc_veryrich,digits=4)`(Income~Very~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(0.60)$  
+$`r avg_vote` = `r round(int, digits = 4)` + `r round(age_50, digits=4)`(Age~to~50) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$  
+
 
 ```{r}
-# General bid function with all variables: 
 
-bid_sb <- function(x){
-  (int+age_30-age_40+age_50-age_60+inc_one+inc_poor+inc_rich+inc_veryrich+(nep*x)+(risk*0.60)-1)/bid
-}
 
+# Use the average NEP, middle income, and middle age bracket (to 50) to find the average bid
+
+bid_sb <- (int + age_50 + (nep*nep_avg) + (risk*60) - avg_vote)/bid
 
 ```
 
-
+$Average~Santa~Barbara~Willingness~to~Pay = `round(abs(r bid_sb), digits=4)`$   
