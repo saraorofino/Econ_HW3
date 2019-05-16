@@ -42,17 +42,17 @@ nep <- whales_lm$coefficients[10]
 bid <- abs(whales_lm$coefficients[11])
 risk <- whales_lm$coefficients[12]
 ```
-Regression Model:  
+**Regression Model:**  
   
-$Logodds(Voting~Yes) = `r round(int, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) - `r round(age_40, digits=4)`(Age~to~40) + `r round(age_50, digits=4)`(Age~to~50) - `r round(age_60, digits=4)`(Age~to~60) + `r round(inc_one, digits=4)`(Income~One~Percent) + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(inc_veryrich,digits=4)`(Income~Very~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(Risk~Reduction)$
+$Probability(Voting~Yes) = `r round(int, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) - `r round(age_40, digits=4)`(Age~to~40) + `r round(age_50, digits=4)`(Age~to~50) - `r round(age_60, digits=4)`(Age~to~60) + `r round(inc_one, digits=4)`(Income~One~Percent) + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(inc_veryrich,digits=4)`(Income~Very~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(Risk~Reduction)$
 
 **Coefficient Interpretation:**  
-*Age:*    
+*Age: Reference Level Over 65*    
   - to 30:   
   - to 40:   
   - to 50:   
   - to 60:   
-*Income:*   
+*Income: Reference Level Middle*   
   - One Percent:  
   - Poor:  
   - Rich:  
@@ -66,11 +66,11 @@ $Logodds(Voting~Yes) = `r round(int, digits = 4)` + `r round(age_30, digits=4)`(
 
 ###3. Estimated Willingness to Pay for a Vessel Speed Reduction Program  
 
-####a.Choose three participants at random
-Using a random number generator select three participants      
-- 38  
-- 44 
-- 102
+####a. Choose three participants at random
+Using a random number generator select three participants:        
+- 38   NEP:32  Income:Rich    Age:to30    
+- 44   NEP:51  Income:Poor    Age:to40  
+- 102  NEP:51  Income:Middle  Age:to60  
 
 ```{r, include=FALSE}
 # Subset of data for 60% VSR program 
@@ -90,26 +90,55 @@ vsr60_rand1 <- whale_60 %>%
 
 ```
 
-###b. Create a regression model to predict willingness to pay for 60% VSR program  
+###b. Predict willingness to pay for 60% VSR program  
+
+Assume the probability of voting yes is 100%, calculate the willingness to pay using the following equations:      
+
+Individual 38:  
+$1 = `r round(int, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(0.60)$
+
+Individual 44:  
+$1 = `r round(int, digits = 4)` - `r round(age_40, digits=4)`(Age~to~40) + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(0.60)$  
+
+Individual 122:  
+$1 = `r round(int, digits = 4)`- `r round(age_60, digits=4)`(Age~to~60) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid)+ `r round(risk, digits=4)`(0.60)$  
+
 
 ```{r, include = FALSE}
-vsr60_lm <- lm(bid ~ NEP + income + age, data = whale_60)
-summary(vsr60_lm)
+
+# Plug the values for randoms into the linear regression and solve for bid 
+
+bid_38 <- (int+age_30+inc_rich+(nep*32)+(risk*0.60)-1)/bid
+
+bid_44 <- (int+age_40+inc_poor+(nep*51)+(risk*0.60)-1)/bid
+
+bid_122 <- (int+age_60+(nep*51)+(risk*0.60)-1)/bid
+```
+
+Individual 38:  
+$Willingness~to~Pay = `r round(abs(bid_38), digits=4)`$    
+
+Individual 44:  
+$Willingness~to~Pay = `r round(abs(bid_44), digits=4)`$  
+
+Individual 122:  
+$Willingness~to~Pay = `r round(abs(bid_122), digits=4)`$  
 
 
-int_60 <- vsr60_lm$coefficients[1]
-nep_60 <- abs(vsr60_lm$coefficients[2])
-inc_one_60 <- vsr60_lm$coefficients[3]
-inc_poor_60 <- abs(vsr60_lm$coefficients[4])
-inc_rich_60 <- vsr60_lm$coefficients[5]
-inc_veryrich_60 <- vsr60_lm$coefficients[6]
-age_50_60 <- abs(vsr60_lm$coefficients[7])
-age_40_60 <- abs(vsr60_lm$coefficients[8])
-age_60_60 <- abs(vsr60_lm$coefficients[9])
-age_30_60 <- vsr60_lm$coefficients[10]
+###4. Santa Barbara Estimated Willingness to Pay for VSR Program   
+
+Again assume the probability of voting yes is 100%, calculate the willingness to pay using:  
+
+$1 = `r round(int, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) - `r round(age_40, digits=4)`(Age~to~40) + `r round(age_50, digits=4)`(Age~to~50) - `r round(age_60, digits=4)`(Age~to~60) + `r round(inc_one, digits=4)`(Income~One~Percent) + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(inc_veryrich,digits=4)`(Income~Very~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(0.60)$  
+
+```{r}
+# General bid function with all variables: 
+
+bid_sb <- function(x){
+  (int+age_30-age_40+age_50-age_60+inc_one+inc_poor+inc_rich+inc_veryrich+(nep*x)+(risk*0.60)-1)/bid
+}
+
 
 ```
 
-Model for estimating willingness to pay:  
 
-$Bid = 
