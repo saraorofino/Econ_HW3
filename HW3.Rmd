@@ -193,3 +193,8 @@ bid_sb <- (int + age_50 + (nep*nep_avg) + (risk*60) - avg_vote)/bid
 ```
 
 $Average~Santa~Barbara~Willingness~to~Pay = `round(abs(r bid_sb), digits=4)`$   
+
+
+###5. Total benefits to Santa Barbara residents (population = 150,000). 
+
+Is this just the population multipled the average willingness to pay for a VSR at 60% reduction (or do we need the range over all VSR reductions)? 
