@@ -2,7 +2,10 @@
 title: "ESM 204 Assignment 3"
 author: "Jeremy Knox, Sara Orofino"
 date: "5/15/2019"
-output: pdf_document
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -13,11 +16,29 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Packages
 library(tidyverse)
-library(tinytex)
 
 
 # Read in data 
 whales <- read_csv("HW3Data.csv")
+
+#Create a version of the data with numbers for income and age to find the mode for use in part 4:  
+whales_numeric <- whales %>%
+  mutate(income_num = ifelse(whales$income == "very_rich", 5,
+                             ifelse(whales$income == "rich", 4,
+                                    ifelse(whales$income == "middle", 3,
+                                           ifelse(whales$income == "poor", 2,
+                                                  ifelse(whales$income == "one_percent", 1, 0)))))) %>% 
+  mutate(age_num = ifelse(whales$age == "tothirty", 1,
+                          ifelse(whales$age == "toforty", 2,
+                                 ifelse(whales$age == "tofifty", 3,
+                                        ifelse(whales$age == "tosixty", 4,
+                                               ifelse(whales$age == "oversixty", 5,0))))))
+
+# Find the median of income and age for use in part 4:
+inc_median <- median(whales_numeric$income_num) #median income bracket is 2 = poor 
+age_median <- median(whales_numeric$age_num) #median age bracket is 3 = tofifty
+
+
 ```
 
 ###1. Linear Probability Model 
@@ -49,18 +70,23 @@ $Probability(Voting~Yes) = `r round(int, digits = 4)` + `r round(age_30, digits=
 
 **Coefficient Interpretation:**  
 *Age: Reference Level Over 65*    
-  - to 30:   
-  - to 40:   
-  - to 50:   
-  - to 60:   
+  - to 30: All else being equal, a person in the age bracket of to 30 would be expected to have a probability of voting yes on a vessel speed reduction program that is, on average, $`r round(age_30, digits=4)`$ higher than a person in the age bracket over 65.          
+  - to 40: All else being equal, a person in the age bracket of to 40 would be expected to have a probability of voting yes on a vessel speed reduction program that is, on average, $`r round(age_40, digits=4)`$ lower than a person in the age bracket over 65.      
+  - to 50: All else being equal, a person in the age bracket of to 50 would be expected to have a probability of voting yes on a vessel speed reduction program that is, on average, $`r round(age_50, digits=4)`$ higher than a person in the age bracket over 65.       
+  - to 60: All else being equal, a person in the age bracket of to 60 would be expected to have a probability of voting yes on a vessel speed reduction program that is, on average, $`r round(age_60, digits=4)`$ lower than a person in the age bracket over 65.    
+    
 *Income: Reference Level Middle*   
-  - One Percent:  
-  - Poor:  
-  - Rich:  
-  - Very Rich:  
-*NEP:*    
-*Bid:*    
-*Risk:*    
+  - One Percent: All else being equal, a person with an income level of one percent would be expected to have a probability of voting yes on a vessel speed reduction program that is, on average, $`r round(inc_one, digits=4)`$ higher than a person with a medium income level.     
+  - Poor: All else being equal, a person with an income level of one percent would be expected to have a probability of voting yes on a vessel speed reduction program that is, on average, $`r round(inc_poor, digits=4)`$ higher than a person with a medium income level.     
+  - Rich: All else being equal, a person with an income level of one percent would be expected to have a probability of voting yes on a vessel speed reduction program that is, on average, $`r round(inc_rich, digits=4)`$ higher than a person with a medium income level.     
+  - Very Rich: All else being equal, a person with an income level of one percent would be expected to have a probability of voting yes on a vessel speed reduction program that is, on average, $`r round(inc_veryrich,digits=4)`$ higher than a person with a medium income level. 
+    
+*NEP:* For every 1 unit increase in environmental concern, we would expect the probability of voting yes on a vessel speed reduction program to increase by $`r round(nep, digits=4)`$, if all other variables are equal.
+  
+*Bid:*  For every 1 dollar increase in annual household payment, we expect the probability of voting yes on a vessel speed reduction program to decrease by $`r round(bid, digits=4)`$, if all other variables are equal.
+  
+*Risk:* For every 1 unit increase in risk reduction, we would expect the probability of voting yes on a vessel speed reduction program to increase by $`r round(risk, digits=4)`$, if all other variables are equal.    
+
 
 ###2. Value of Prevented Whale Deaths  
 
@@ -87,7 +113,7 @@ bid_zero <- (int + age_30 + inc_rich + (nep*nep_avg) + (risk*0) - avg_vote)/bid
 
 ```
 
-$Willingness~to~Pay = `r round(bid_zero, digits=4)`$    
+$Willingness~to~Pay = `r round(bid_zero, digits=2)`$    
 
 **Risk Reduction 4%**  
 Again, assume the probability of voting yes is the average of the votes ($p = 0.714$), assume an age to 30, income rich, and the average NEP (38.366), solve for the willingness to pay for the program using:  
@@ -103,7 +129,7 @@ bid_four <- (int + age_30 + inc_rich + (nep*nep_avg) + (risk*4) - avg_vote)/bid
 
 ```
 
-$Willingness~to~Pay = `r round(bid_four, digits=4)`$ 
+$Willingness~to~Pay = `r round(bid_four, digits=2)`$ 
 
 The value of a single whale is the difference between the willingness to pay for a vessel speed reduction program at 4% and at 0%.  
 
@@ -113,7 +139,7 @@ value <- bid_four - bid_zero
 
 ```
 
-$Individual~Whale~Value = `r round(value, digits=4)`$  
+$Individual~Whale~Value = `r round(value, digits=2)`$  
 
 
 ###3. Estimated Willingness to Pay for a Vessel Speed Reduction Program  
@@ -168,41 +194,42 @@ bid_122 <- (int+age_60+(nep*51)+(risk*60)-avg_vote)/bid
 ```
 
 Individual 38:  
-$Willingness~to~Pay = `r round(abs(bid_38), digits=4)`$    
+$Willingness~to~Pay = `r round(abs(bid_38), digits=2)`$    
 
 Individual 44:  
-$Willingness~to~Pay = `r round(abs(bid_44), digits=4)`$  
+$Willingness~to~Pay = `r round(abs(bid_44), digits=2)`$  
 
 Individual 122:  
-$Willingness~to~Pay = `r round(abs(bid_122), digits=4)`$  
+$Willingness~to~Pay = `r round(abs(bid_122), digits=2)`$  
 
 
 ###4. Santa Barbara Estimated Willingness to Pay for VSR Program   
 
-Again assume the probability of voting yes the average of voting yes ($p = 0.714$). Use the average income bracket (middle), the average age bracket (to 50), and average NEP (38.366) to calculate willingness to pay using: 
+Again assume the probability of voting yes the average of voting yes ($p = 0.714$). Use the median income bracket (poor), the median age bracket (to 50), and average NEP (38.366) to calculate willingness to pay using: 
 
-$`r avg_vote` = `r round(int, digits = 4)` + `r round(age_50, digits=4)`(Age~to~50) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$  
+$`r avg_vote` = `r round(int, digits = 4)` + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(age_50, digits=4)`(Age~to~50) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$  
 
 
 ```{r, include = FALSE}
+# Find the mode of the income and age to use in the equation:
 
 
-# Use the average NEP, middle income, and middle age bracket (to 50) to find the average bid
+# Use the average NEP, median income (poor), and middle age bracket (to 50) to find the average bid
 
-bid_sb <- (int + age_50 + (nep*nep_avg) + (risk*60) - avg_vote)/bid
+bid_sb <- (int + age_50 + inc_poor + (nep*nep_avg) + (risk*60) - avg_vote)/bid
 
 ```
 
-$Average~Santa~Barbara~County~Household~Willingness~to~Pay = `round(abs(r bid_sb), digits=4)`$   
+$Average~Santa~Barbara~County~Household~Willingness~to~Pay = `r round(abs(bid_sb), digits=2)`$   
 
 
 ###5. Total benefits to Santa Barbara residents (population = 150,000). 
 
 Risk = 60%  
-Cost = $7 million 
+Cost = 7 million 
 
 Calculate Total Benefits using the following equation:  
-Total Benefits = $`r bid_sb`per household * 150,000 households$  
+Total Benefits = $`r round(bid_sb, digits=2)`~per~household * 150,000~households$  
 
 ```{r, include=FALSE}
 total_benefit <- bid_sb * 150000
@@ -215,17 +242,17 @@ Total Benefits = $`r round(total_benefit, digits =2)`$
 
 ###6. Do Benefits Outweight Costs
 
-Based only on these benefits the benefits do outweight the costs.
+Yes, based only on these benefits the benefits do outweight the costs.
 
-Cost = $7 million  
-Benefits = `r total_benefit`  
+Cost = 7 million  
+Benefits = $`r total_benefit`$  
 
 $Surplus = `r total_benefit` - 7000000 = `r surplus`$  
 
 
 ###7. Price of Carbon Credits  
 
-Assume that for any ship transiting the Santa Barbara Channel the speed reduction tha results in a 60% risk reduction costs the shipper $1000 but will result in 20 fewer tons of carbon dioxide per transit.   
+Assume that for any ship transiting the Santa Barbara Channel the speed reduction tha results in a 60% risk reduction costs the shipper 1000 but will result in 20 fewer tons of carbon dioxide per transit.   
 
 Shipping companies will adopt the VSR for self interested reasons if the value of the carbon credits is equal to the cost.   
 
@@ -234,12 +261,12 @@ $Z = 50/ton$
 
 
 ###8. Whales Saved by Carbon Credits   
-Assume the value of the carbon credit is $50/ton and all ships reduce speed to achieve the 60% risk reduction.      
+Assume the value of the carbon credit is 50/ton and all ships reduce speed to achieve the 60% risk reduction.      
 
 Number of Whales Saved:  
 20% Reduction = 5 Whales saved     
-$Whales Saved = 5*3 = 15$  
+$Whales~Saved = 5*3 = 15$  
 
-The social value of the whale reduction program is the total benefit of that program minus the cost. Since the carbon credits would avoid the $7 million cost of the program, the social value is just the total benefit of the program.     
+The social value of the whale reduction program is the total benefit of that program minus the cost. Since the carbon credits would avoid the 7 million cost of the program, the social value is just the total benefit of the program.     
 
-$Social value = `r total_benefit`$  
+$Social~Value = `r total_benefit`$  
