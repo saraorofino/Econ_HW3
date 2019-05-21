@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Packages
 library(tidyverse)
+library(tinytex)
 
 
 # Read in data 
@@ -24,7 +25,7 @@ whales <- read_csv("HW3Data.csv")
 Create a linear probility model that predicts a respondent's probability of voting "yes" on the ballot based on their age, income, NEP score, the program's risk reduction, and cost of the program to that respondent.  
 
 ```{r, include=FALSE}
-# Votes: 1 = "yes", 0 = "no" - use binomial logistic regression 
+# Votes: 1 = "yes", 0 = "no"  
 
 whales_lm <- lm(vote ~ age + income + NEP + bid + risk, data = whales)
 summary(whales_lm)
@@ -183,7 +184,7 @@ Again assume the probability of voting yes the average of voting yes ($p = 0.714
 $`r avg_vote` = `r round(int, digits = 4)` + `r round(age_50, digits=4)`(Age~to~50) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$  
 
 
-```{r}
+```{r, include = FALSE}
 
 
 # Use the average NEP, middle income, and middle age bracket (to 50) to find the average bid
@@ -192,9 +193,53 @@ bid_sb <- (int + age_50 + (nep*nep_avg) + (risk*60) - avg_vote)/bid
 
 ```
 
-$Average~Santa~Barbara~Willingness~to~Pay = `round(abs(r bid_sb), digits=4)`$   
+$Average~Santa~Barbara~County~Household~Willingness~to~Pay = `round(abs(r bid_sb), digits=4)`$   
 
 
 ###5. Total benefits to Santa Barbara residents (population = 150,000). 
 
-Is this just the population multipled the average willingness to pay for a VSR at 60% reduction (or do we need the range over all VSR reductions)? 
+Risk = 60%  
+Cost = $7 million 
+
+Calculate Total Benefits using the following equation:  
+Total Benefits = $`r bid_sb`per household * 150,000 households$  
+
+```{r, include=FALSE}
+total_benefit <- bid_sb * 150000
+
+surplus <- total_benefit - 7000000
+```
+
+
+Total Benefits = $`r round(total_benefit, digits =2)`$  
+
+###6. Do Benefits Outweight Costs
+
+Based only on these benefits the benefits do outweight the costs.
+
+Cost = $7 million  
+Benefits = `r total_benefit`  
+
+$Surplus = `r total_benefit` - 7000000 = `r surplus`$  
+
+
+###7. Price of Carbon Credits  
+
+Assume that for any ship transiting the Santa Barbara Channel the speed reduction tha results in a 60% risk reduction costs the shipper $1000 but will result in 20 fewer tons of carbon dioxide per transit.   
+
+Shipping companies will adopt the VSR for self interested reasons if the value of the carbon credits is equal to the cost.   
+
+$20*Z = 1000$  
+$Z = 50/ton$  
+
+
+###8. Whales Saved by Carbon Credits   
+Assume the value of the carbon credit is $50/ton and all ships reduce speed to achieve the 60% risk reduction.      
+
+Number of Whales Saved:  
+20% Reduction = 5 Whales saved     
+$Whales Saved = 5*3 = 15$  
+
+The social value of the whale reduction program is the total benefit of that program minus the cost. Since the carbon credits would avoid the $7 million cost of the program, the social value is just the total benefit of the program.     
+
+$Social value = `r total_benefit`$  
