@@ -23,11 +23,11 @@ whales <- read_csv("HW3Data.csv")
 
 #Create a version of the data with numbers for income and age to find the mode for use in part 4:  
 whales_numeric <- whales %>%
-  mutate(income_num = ifelse(whales$income == "very_rich", 5,
-                             ifelse(whales$income == "rich", 4,
-                                    ifelse(whales$income == "middle", 3,
-                                           ifelse(whales$income == "poor", 2,
-                                                  ifelse(whales$income == "one_percent", 1, 0)))))) %>% 
+  mutate(income_num = ifelse(whales$income == "very_rich", 4,
+                             ifelse(whales$income == "rich", 3,
+                                    ifelse(whales$income == "middle", 2,
+                                           ifelse(whales$income == "poor", 1,
+                                                  ifelse(whales$income == "one_percent", 5, 0)))))) %>% 
   mutate(age_num = ifelse(whales$age == "tothirty", 1,
                           ifelse(whales$age == "toforty", 2,
                                  ifelse(whales$age == "tofifty", 3,
@@ -35,7 +35,7 @@ whales_numeric <- whales %>%
                                                ifelse(whales$age == "oversixty", 5,0))))))
 
 # Find the median of income and age for use in part 4:
-inc_median <- median(whales_numeric$income_num) #median income bracket is 2 = poor 
+inc_median <- median(whales_numeric$income_num) #median income bracket is 3 = rich 
 age_median <- median(whales_numeric$age_num) #median age bracket is 3 = tofifty
 
 
@@ -76,10 +76,10 @@ $Probability(Voting~Yes) = `r round(int, digits = 4)` + `r round(age_30, digits=
   - to 60: All else being equal, a person in the age bracket of to 60 would be expected to have a probability of voting yes on a vessel speed reduction program that is, on average, $`r round(age_60, digits=4)`$ lower than a person in the age bracket over 65.    
     
 *Income: Reference Level Middle*   
-  - One Percent: All else being equal, a person with an income level of one percent would be expected to have a probability of voting yes on a vessel speed reduction program that is, on average, $`r round(inc_one, digits=4)`$ higher than a person with a medium income level.     
   - Poor: All else being equal, a person with an income level of one percent would be expected to have a probability of voting yes on a vessel speed reduction program that is, on average, $`r round(inc_poor, digits=4)`$ higher than a person with a medium income level.     
   - Rich: All else being equal, a person with an income level of one percent would be expected to have a probability of voting yes on a vessel speed reduction program that is, on average, $`r round(inc_rich, digits=4)`$ higher than a person with a medium income level.     
-  - Very Rich: All else being equal, a person with an income level of one percent would be expected to have a probability of voting yes on a vessel speed reduction program that is, on average, $`r round(inc_veryrich,digits=4)`$ higher than a person with a medium income level. 
+  - Very Rich: All else being equal, a person with an income level of one percent would be expected to have a probability of voting yes on a vessel speed reduction program that is, on average, $`r round(inc_veryrich,digits=4)`$ higher than a person with a medium income level.   
+  - One Percent: All else being equal, a person with an income level of one percent would be expected to have a probability of voting yes on a vessel speed reduction program that is, on average, $`r round(inc_one, digits=4)`$ higher than a person with a medium income level.   
     
 *NEP:* For every 1 unit increase in environmental concern, we would expect the probability of voting yes on a vessel speed reduction program to increase by $`r round(nep, digits=4)`$, if all other variables are equal.
   
@@ -205,18 +205,18 @@ $Willingness~to~Pay = `r round(abs(bid_122), digits=2)`$
 
 ###4. Santa Barbara Estimated Willingness to Pay for VSR Program   
 
-Again assume the probability of voting yes the average of voting yes ($p = 0.714$). Use the median income bracket (poor), the median age bracket (to 50), and average NEP (38.366) to calculate willingness to pay using: 
+Again assume the probability of voting yes the average of voting yes ($p = 0.714$). Use the median income bracket (rich), the median age bracket (to 50), and average NEP (38.366) to calculate willingness to pay using: 
 
-$`r avg_vote` = `r round(int, digits = 4)` + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(age_50, digits=4)`(Age~to~50) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$  
+$`r avg_vote` = `r round(int, digits = 4)` + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(age_50, digits=4)`(Age~to~50) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$  
 
 
 ```{r, include = FALSE}
 # Find the mode of the income and age to use in the equation:
 
 
-# Use the average NEP, median income (poor), and middle age bracket (to 50) to find the average bid
+# Use the average NEP, median income (rich), and middle age bracket (to 50) to find the average bid
 
-bid_sb <- (int + age_50 + inc_poor + (nep*nep_avg) + (risk*60) - avg_vote)/bid
+bid_sb <- (int + age_50 + inc_rich + (nep*nep_avg) + (risk*60) - avg_vote)/bid
 
 ```
 
