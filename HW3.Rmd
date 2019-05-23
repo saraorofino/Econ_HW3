@@ -57,7 +57,7 @@ The coast of California is home to a diverse marine ecosystem. Among the most im
 To analyze Santa Barbara respondents probability of voting yes on a VSR program we use a linear regression model. Given that reducing the risk of whales strikes by 20% saves five whales, our model suggests the willingness to pay for saving one whale is 2.78(UNITS?), on average ceteris paribus.[^5] Furthermore, implementing a 60% reduction VSR program would result in an average willingness to pay of 71.48(UNITS?).[^6] Reducing the risk by this much would save 15 whales. Santa Barbara residents will recieve these benefits but the cost will be spread across the country (from a price increase on goods transported by these shipping vessels).The cost to implement a 60% reduction VSR is \$7 million. Santa Barbara residents would recieve a benefit of over \$10 billion giving a surplus of over $3.7 million.[^7]
 
 
-Ships that reduce their speed not only reduce the risk of colliding with whales but also emit less carbon. An alternative to the price increase consumers of products aboard these ships face is a carbon credit program. There are carbon trading markets that could potentially offset the cost of implmenting a 60% reduction program. Our analysis shows that a carbon market that prices carbon at \$50 per ton would offset the cost of reducing speed thereby incentivising ships to reduce their speed. In this scenario, the benefit of 15 whales being saved to Santa Barbara Residents would be over \$10 billion while the cost would go to all tax payers and stakeholders who fund the carbon offeset program.  
+Ships that reduce their speed not only reduce the risk of colliding with whales but also emit less carbon. An alternative to the price increase consumers of products aboard these ships face is a carbon credit program. There are carbon trading markets that could potentially offset the cost of implmenting a 60% reduction program. Our analysis shows that a carbon market that prices carbon at \$50 per ton would offset the cost of reducing speed thereby incentivising ships to reduce their speed.[^8] In this scenario, the benefit of 15 whales being saved to Santa Barbara Residents would be over \$10 billion while the cost would go to all tax payers and stakeholders who fund the carbon offeset program.  
 
 
 ## CONCLUSION
@@ -81,6 +81,8 @@ Given that the benefits outweigh the costs by
 [^6]: See Technical Appendix: (4)
 
 [^7]: See Technical Appendix: (5) & (6)
+
+[^8]: See Technical Appendix: (7)
 
 \newpage
 
