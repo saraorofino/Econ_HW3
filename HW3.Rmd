@@ -21,7 +21,7 @@ urlcolor: blue
 \newline
 \vspace{-10pt}
 \noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}
-\vspace{-9pt}
+\vspace{-18pt}
 \setlist[2]{noitemsep}
 \begin{description}[leftmargin=!,itemsep=-1ex,labelwidth=\widthof{Subject:  }]
   \item[To:] Santa Barbara Government 
@@ -44,7 +44,7 @@ The coast of California is home to a diverse marine ecosystem. Among the most im
 ## METHODS
 \vspace{-10pt} 
 
-**Data**: A contingent valuation survey to 500 Santa Barbara County residents was given to determine the local demand for a VSR program. Variables measured are: (1) _risk_: level of risk reduction, (2) _bid_: annual payment for the household, (3) _vote_: 1 is yes, 0 is no, (4) _NEP_ : measure of environmental concern, (5) _age_: categorical, (6) _income_: categorical.[^3]   
+**Data**: A contingent valuation survey to 500 Santa Barbara County residents was given to determine the local demand for a VSR program. Variables measured: (1) _risk_: level of risk reduction, (2) _bid_: annual payment for the household, (3) _vote_: 1 is yes, 0 is no, (4) _NEP_ : measure of environmental concern, (5) _age_: categorical, (6) _income_: categorical.[^3]   
 
 **Model**: Linear regression model of _vote_ on _age_, _income_, _NEP_, _bid_ and _risk_.[^4]
 
@@ -53,14 +53,18 @@ The coast of California is home to a diverse marine ecosystem. Among the most im
 ## ANALYSIS
 \vspace{-10pt} 
 
-blah blah
+
+To analyze Santa Barbara respondents probability of voting yes on a VSR program we use a linear regression model. Given that reducing the risk of whales strikes by 20% saves five whales, our model suggests the willingness to pay for saving one whale is 2.78(UNITS?), on average ceteris paribus.[^5] Furthermore, implementing a 60% reduction VSR program would result in an average willingness to pay of 71.48(UNITS?).[^6] Reducing the risk by this much would save 15 whales. Santa Barbara residents will recieve these benefits but the cost will be spread across the country (from a price increase on goods transported by these shipping vessels).The cost to implement a 60% reduction VSR is \$7 million. Santa Barbara residents would recieve a benefit of over \$10 billion giving a surplus of over $3.7 million.[^7]
+
+
+An alternative to prices increases
 
 
 
 ## CONCLUSION
 \vspace{-10pt} 
 
-blah blah
+Given that the benefits outweigh the costs by 
 
 
 
@@ -71,8 +75,13 @@ blah blah
 
 [^3]: WhaleStrikes Group Porject
 
-[^4]: See Technical Appendix 1; Linear model is used, instead of logistic, because the ease of interpretation.
+[^4]: See Technical Appendix: (1) Linear model is used, instead of logistic, because the ease of interpretation.
 
+[^5]: See Technical Appendix: (2)
+
+[^6]: See Technical Appendix: (4)
+
+[^6]: See Technical Appendix: (5) & (6)
 
 \newpage
 
