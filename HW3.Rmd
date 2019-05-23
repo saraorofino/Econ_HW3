@@ -67,7 +67,7 @@ Ships that reduce their speed not only reduce the risk of colliding with whales 
 ## CONCLUSION
 \vspace{-10pt} 
 
-Reducing the speed of ships through the Santa Barbara Channel would result in a 60% decrease in risk of whale strikes, ultimatley saving 15 whales. The cost would fall on consumers of the products among these ships or citizens who's tax dollars go to carbon credit program. Given that benefits far outweigh cost, Santa Barbara Government should implment the VSR program.  
+Reducing the speed of ships through the Santa Barbara Channel would result in a 60% decrease in risk of whale strikes, ultimatley saving 15 whales. The cost would fall on consumers of the products among these ships or citizens whose tax dollars go to a carbon credit program. Given that benefits far outweigh cost, Santa Barbara Government should implment the VSR program.  
 
 
 
@@ -151,28 +151,18 @@ risk <- whales_lm$coefficients[12]
 ```
 
 
-```{r stargazer_country, echo=F, include=F}
-library(tidyverse)
+```{r stargazer_country,results = 'asis', echo=F, message=FALSE, warning=FALSE}
+
 library(stargazer)
 library(tinytex)
 
-table <- stargazer(whales_lm, 
-                      title = "Linear Regression Results",
-                      type = "latex",
-                      dep.var.labels = c("Vote Yes"),
-                      digits=7,
-                      header = FALSE)
-```
-
-
-```{r stargazer_results, results = 'asis', echo = FALSE, message = FALSE, include=F}
-# formatting for final table 
-
-
-table <- gsub("\\begin{tabular}","\\resizebox{1.0\\textwidth}{!}{\\begin{tabular}", table,fixed=T)
-table <- gsub("\\end{tabular}","\\end{tabular}}", table,fixed=T)
-cat(table)
-
+table <- stargazer(whales_lm,
+                   title = "Linear Regression Results",
+                   type = "latex",
+                   dep.var.labels = c("Vote Yes"),
+                   digits=4,
+                   header = FALSE)
+table
 ```
 
 
@@ -206,15 +196,15 @@ Reducing the risk of whale strikes by 20% saves five whales every year. Based on
 
 
 **Risk Reduction 0%**  
-Assume the probability of voting yes is the average of the votes ($p = 0.714$), assume an age to 30, income rich, and the average NEP (38.366), solve for the willingness to pay for the program using:
+Assume the probability of voting yes is 0.5, assume an age to 30, income rich, and the average NEP (38.366), solve for the willingness to pay for the program using:
 
-$0.714 = `r round(int, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(0)$
+$0.5 = `r round(int, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(0)$
 
 
 ```{r, include=FALSE}
 # Find the average of the yes votes:
 
-avg_vote <- mean(whales$vote)
+avg_vote <- 0.5
 
 # Find the average of the NEP:
 
@@ -228,9 +218,9 @@ bid_zero <- (int + age_30 + inc_rich + (nep*nep_avg) + (risk*0) - avg_vote)/bid
 $Willingness~to~Pay = `r round(bid_zero, digits=2)`$    
 
 **Risk Reduction 4%**  
-Again, assume the probability of voting yes is the average of the votes ($p = 0.714$), assume an age to 30, income rich, and the average NEP (38.366), solve for the willingness to pay for the program using:  
+Again, assume the probability of voting yes is 0.5, assume an age to 30, income rich, and the average NEP (38.366), solve for the willingness to pay for the program using:  
 
-$0.714 = `r round(int, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(4)$  
+$0.5 = `r round(int, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(4)$  
 
 
 ```{r, include=FALSE}
@@ -293,7 +283,6 @@ $`r avg_vote` = `r round(int, digits = 4)` - `r round(age_40, digits=4)`(Age~to~
 Individual 122:  
 $`r avg_vote` = `r round(int, digits = 4)`- `r round(age_60, digits=4)`(Age~to~60) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid)+ `r round(risk, digits=4)`(60)$  
 
-
 ```{r, include = FALSE}
 
 # Plug the values for randoms into the linear regression and solve for bid 
@@ -317,7 +306,7 @@ $Willingness~to~Pay = `r round(abs(bid_122), digits=2)`$
 
 ### 4. Santa Barbara Estimated Willingness to Pay for VSR Program   
 
-Again assume the probability of voting yes the average of voting yes ($p = 0.714$). Use the median income bracket (rich), the median age bracket (to 50), and average NEP (38.366) to calculate willingness to pay using: 
+Again assume the probability of voting yes is 0.5. Use the median income bracket (rich), the median age bracket (to 50), and average NEP (38.366) to calculate willingness to pay using: 
 
 $`r avg_vote` = `r round(int, digits = 4)` + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(age_50, digits=4)`(Age~to~50) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$  
 
