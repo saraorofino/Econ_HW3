@@ -38,7 +38,7 @@ urlcolor: blue
 ## BACKGROUND
 \vspace{-10pt} 
 
-The coast of California is home to a diverse marine ecosystem. Among the most important components are whales. Every year, over 20 whales are struck by container ships along the West Coast of the United States.[^1] The Santa Barbara Channel, off the coast of Calfiornia stretching from Point Conception to Point Mugu, is frequently visited by three endangered whale species: blue, fin and humpback. This is due to the unique location of the SB Channel where cold water from the north combines with warmer water from the south. Unfortunately, this channel is also a key shipping area for container ships. These ships transport 90% of the world's goods and travel through SB Channel more than 2,700 times every year[^2]. One proposed soltuion to reduce the frequency of whale strikes is a vessel speed reduction (VSR) program. Reducing the speed of ships through this channel would result in a 60% decrease in risk of whale strikes. The following analysis demonstrates that VSR program benefits outweigh costs by a couple orders of magnitude and concludes that the prgram should be adopted.
+The coast of California is home to a diverse marine ecosystem. Among the most important components are whales. Every year, over 20 whales are struck by container ships along the West Coast of the United States.[^1] The Santa Barbara Channel, off the coast of Calfiornia stretching from Point Conception to Point Mugu, is frequently visited by three endangered whale species: blue, fin and humpback. This is due to the unique location of the SB Channel where cold water from the north combines with warmer water from the south. Unfortunately, this channel is also a key shipping area for container ships. These ships transport 90% of the world's goods and travel through SB Channel more than 2,700 times every year[^2]. One proposed soltuion to reduce the frequency of whale strikes is a vessel speed reduction (VSR) program. Reducing the speed of ships through this channel would result in a 60% decrease in risk of whale strikes. The following analysis demonstrates that VSR program benefits outweigh costs by an order of magnitude and concludes that the prgram should be adopted.
 
 
 
@@ -56,10 +56,9 @@ The coast of California is home to a diverse marine ecosystem. Among the most im
 ## ANALYSIS
 \vspace{-10pt} 
 
-To analyze Santa Barbara respondents probability of voting yes on a VSR program we use a linear regression model. Given that reducing the risk of whales strikes by 20% saves five whales, our model suggests the willingness to pay for saving one whale is \$2.78, on average ceteris paribus.[^5] Furthermore, implementing a 60% reduction VSR program would result in an average willingness to pay of \$71.48.[^6] Reducing the risk by this much would save 15 whales. Santa Barbara residents will recieve these benefits but the cost will be spread across the country (from a price increase on goods transported by these ships).The cost to implement a 60% VSR is \$7 million. Santa Barbara residents would recieve a benefit of over \$10 billion giving a surplus of over $3.7 million.[^7]
+To analyze Santa Barbara respondents probability of voting yes on a VSR program we use a linear regression model. Given that reducing the risk of whales strikes by 20% saves five whales, our model suggests the willingness to pay for saving one whale is \$2.78, on average ceteris paribus.[^5] Furthermore, implementing a 60% reduction VSR program would result in an average willingness to pay of \$271.50.[^6] Reducing the risk by this much would save 15 whales. Santa Barbara residents will recieve these benefits but the cost will be spread across the country (from a price increase on goods transported by these ships).The cost to implement a 60% VSR is \$7 million. Santa Barbara residents would recieve a benefit of over \$40 million giving a surplus of over $33 million[^7]  
 
-
-Ships that reduce their speed not only reduce the risk of colliding with whales but also emit less carbon. An alternative to the price increase on products aboard these ships is a carbon credit program. There are carbon trading markets that could potentially offset the cost of implmenting a 60% VSR program. Our analysis shows that a carbon market that prices carbon at \$50 per ton would offset the cost of reducing speed thereby incentivising ships to reduce their speed.[^8] In this scenario, the benefit of 15 whales being saved to Santa Barbara Residents would be over \$10 billion while the cost would go to all tax payers and stakeholders who fund the carbon offeset program.  
+Ships that reduce their speed not only reduce the risk of colliding with whales but also emit less carbon. An alternative to the price increase on products aboard these ships is a carbon credit program. There are carbon trading markets that could potentially offset the cost of implmenting a 60% VSR program. Our analysis shows that a carbon market that prices carbon at \$50 per ton would offset the cost of reducing speed thereby incentivising ships to reduce their speed.[^8] In this scenario, the benefit of 15 whales being saved to Santa Barbara Residents would be over \$40 million while the cost would go to all tax payers and stakeholders who fund the carbon offeset program.  
 
 
 
@@ -150,20 +149,6 @@ bid <- abs(whales_lm$coefficients[11])
 risk <- whales_lm$coefficients[12]
 ```
 
-
-```{r stargazer_country,results = 'asis', echo=F, message=FALSE, warning=FALSE}
-
-library(stargazer)
-library(tinytex)
-
-table <- stargazer(whales_lm,
-                   title = "Linear Regression Results",
-                   type = "latex",
-                   dep.var.labels = c("Vote Yes"),
-                   digits=4,
-                   header = FALSE)
-table
-```
 
 
 **Regression Model:**  
