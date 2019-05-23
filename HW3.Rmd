@@ -19,7 +19,7 @@ urlcolor: blue
 \vspace{-85pt}
 \text{\bfseries\LARGE{MEMORANDUM}}
 \newline
-\vspace{-10pt}
+\vspace{-18pt}
 \noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}
 \vspace{-18pt}
 \setlist[2]{noitemsep}
@@ -33,38 +33,41 @@ urlcolor: blue
 \noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}
 \vspace{-25pt}
 
-<!---THE MEMO BODY. EDITS ALL PLAIN TEXT--->
+
 
 ## BACKGROUND
 \vspace{-10pt} 
 
-The coast of California is home to a diverse marine ecosystem. Among the most important components are whales. Every year, over 20 whales are struck by container ships along the West Coast of the United States.[^1] The Santa Barbara Channel, off the coast of Calfiornia stretching from Point Conception to Point Mugu, is frequently visited by three endangered whale species: blue, fin and humpback. This is due to the unique location of the SB Channel where cold water from the north combines with warmer water from the south. Unfortunately, this channel is also a key shipping area for container ships. These ships transport 90% of the world's goods and travel through SB Channel more than 2,700 times every year[^2]. One proposed soltuion to reduce the frequency of whale strikes is the vessel speed reduction program (VSR). Reducing the speed of these ships would result in a 60% decrease in risk of whale strikes. The following analysis looks to quantify the economic benefits and costs of this VSR program. 
+The coast of California is home to a diverse marine ecosystem. Among the most important components are whales. Every year, over 20 whales are struck by container ships along the West Coast of the United States.[^1] The Santa Barbara Channel, off the coast of Calfiornia stretching from Point Conception to Point Mugu, is frequently visited by three endangered whale species: blue, fin and humpback. This is due to the unique location of the SB Channel where cold water from the north combines with warmer water from the south. Unfortunately, this channel is also a key shipping area for container ships. These ships transport 90% of the world's goods and travel through SB Channel more than 2,700 times every year[^2]. One proposed soltuion to reduce the frequency of whale strikes is a vessel speed reduction (VSR) program. Reducing the speed of ships through this channel would result in a 60% decrease in risk of whale strikes. The following analysis demonstrates that VSR program benefits outweigh costs by a couple orders of magnitude and concludes that the prgram should be adopted.
 
 
+
+
+\vspace{-15pt} 
 ## METHODS
 \vspace{-10pt} 
 
-**Data**: A contingent valuation survey to 500 Santa Barbara County residents was given to determine the local demand for a VSR program. Variables measured: (1) _risk_: level of risk reduction, (2) _bid_: annual payment for the household, (3) _vote_: 1 is yes, 0 is no, (4) _NEP_ : measure of environmental concern, (5) _age_: categorical, (6) _income_: categorical.[^3]   
-
-**Model**: Linear regression model of _vote_ on _age_, _income_, _NEP_, _bid_ and _risk_.[^4]
+**Data**: A contingent valuation survey to 500 Santa Barbara County residents was given to determine the local demand for a VSR program. Variables measured: (1) _risk_: level of risk reduction, (2) _bid_: annual payment for the household, (3) _vote_: 1 is yes, 0 is no, (4) _NEP_ : measure of environmental concern, (5) _age_: categorical, (6) _income_: categorical.[^3] **Model**: Linear regression model of _vote_ on _age_, _income_, _NEP_, _bid_ and _risk_.[^4]
 
 
 
+
+\vspace{-15pt} 
 ## ANALYSIS
 \vspace{-10pt} 
 
-
-To analyze Santa Barbara respondents probability of voting yes on a VSR program we use a linear regression model. Given that reducing the risk of whales strikes by 20% saves five whales, our model suggests the willingness to pay for saving one whale is 2.78(UNITS?), on average ceteris paribus.[^5] Furthermore, implementing a 60% reduction VSR program would result in an average willingness to pay of 71.48(UNITS?).[^6] Reducing the risk by this much would save 15 whales. Santa Barbara residents will recieve these benefits but the cost will be spread across the country (from a price increase on goods transported by these shipping vessels).The cost to implement a 60% reduction VSR is \$7 million. Santa Barbara residents would recieve a benefit of over \$10 billion giving a surplus of over $3.7 million.[^7]
-
-
-Ships that reduce their speed not only reduce the risk of colliding with whales but also emit less carbon. An alternative to the price increase consumers of products aboard these ships face is a carbon credit program. There are carbon trading markets that could potentially offset the cost of implmenting a 60% reduction program. Our analysis shows that a carbon market that prices carbon at \$50 per ton would offset the cost of reducing speed thereby incentivising ships to reduce their speed.[^8] In this scenario, the benefit of 15 whales being saved to Santa Barbara Residents would be over \$10 billion while the cost would go to all tax payers and stakeholders who fund the carbon offeset program.  
+To analyze Santa Barbara respondents probability of voting yes on a VSR program we use a linear regression model. Given that reducing the risk of whales strikes by 20% saves five whales, our model suggests the willingness to pay for saving one whale is \$2.78, on average ceteris paribus.[^5] Furthermore, implementing a 60% reduction VSR program would result in an average willingness to pay of \$71.48.[^6] Reducing the risk by this much would save 15 whales. Santa Barbara residents will recieve these benefits but the cost will be spread across the country (from a price increase on goods transported by these ships).The cost to implement a 60% VSR is \$7 million. Santa Barbara residents would recieve a benefit of over \$10 billion giving a surplus of over $3.7 million.[^7]
 
 
+Ships that reduce their speed not only reduce the risk of colliding with whales but also emit less carbon. An alternative to the price increase on products aboard these ships is a carbon credit program. There are carbon trading markets that could potentially offset the cost of implmenting a 60% VSR program. Our analysis shows that a carbon market that prices carbon at \$50 per ton would offset the cost of reducing speed thereby incentivising ships to reduce their speed.[^8] In this scenario, the benefit of 15 whales being saved to Santa Barbara Residents would be over \$10 billion while the cost would go to all tax payers and stakeholders who fund the carbon offeset program.  
+
+
+
+\vspace{-15pt} 
 ## CONCLUSION
 \vspace{-10pt} 
 
-Given that the benefits outweigh the costs by 
-
+Reducing the speed of ships through the Santa Barbara Channel would result in a 60% decrease in risk of whale strikes, ultimatley saving 15 whales. The cost would fall on consumers of the products among these ships or citizens who's tax dollars go to carbon credit program. Given that benefits far outweigh cost, Santa Barbara Government should implment the VSR program.  
 
 
 
@@ -74,7 +77,7 @@ Given that the benefits outweigh the costs by
 
 [^3]: WhaleStrikes Group Porject
 
-[^4]: See Technical Appendix: Linear model is used, instead of logistic, because the ease of interpretation. Significance of variables was not analyzed and averages/medians were used for calculations. 
+[^4]: See Technical Appendix: (1) Linear model is used, instead of logistic, because the ease of interpretation. Significance of variables was not analyzed and averages/medians were used for calculations. 
 
 [^5]: See Technical Appendix: (2)
 
@@ -146,6 +149,33 @@ nep <- whales_lm$coefficients[10]
 bid <- abs(whales_lm$coefficients[11])
 risk <- whales_lm$coefficients[12]
 ```
+
+
+```{r stargazer_country, echo=F, include=F}
+library(tidyverse)
+library(stargazer)
+library(tinytex)
+
+table <- stargazer(whales_lm, 
+                      title = "Linear Regression Results",
+                      type = "latex",
+                      dep.var.labels = c("Vote Yes"),
+                      digits=7,
+                      header = FALSE)
+```
+
+
+```{r stargazer_results, results = 'asis', echo = FALSE, message = FALSE, include=F}
+# formatting for final table 
+
+
+table <- gsub("\\begin{tabular}","\\resizebox{1.0\\textwidth}{!}{\\begin{tabular}", table,fixed=T)
+table <- gsub("\\end{tabular}","\\end{tabular}}", table,fixed=T)
+cat(table)
+
+```
+
+
 **Regression Model:**  
   
 $Probability(Voting~Yes) = `r round(int, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) - `r round(age_40, digits=4)`(Age~to~40) + `r round(age_50, digits=4)`(Age~to~50) - `r round(age_60, digits=4)`(Age~to~60) + `r round(inc_one, digits=4)`(Income~One~Percent) + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(inc_veryrich,digits=4)`(Income~Very~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(Risk~Reduction)$
