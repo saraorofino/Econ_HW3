@@ -38,13 +38,15 @@ urlcolor: blue
 ## BACKGROUND
 \vspace{-10pt} 
 
-The coast of California is home to a diverse marine ecosystem. Among the most important components are whales. Every year, over 20 whales are struck by container ships along the West Coast of the United States.[^1] The Santa Barbara Channel, starting off the coast of Calfiornia stretching from Point Conception to Point Mugu, is frequently visited by three endangered whale species: blue, fin and humpback. This is due to the unique location of the SB Channel where cold water from the north combines with warmer water from the south. Unfortunately, this channel is also a key shipping area for container ships. These ships transport 90% of the world's goods and travel through SB Channel more than 2,700 times every year[^2]. One proposed soltuion to reduce the frequency of whale strikes is the vessel speed reduction program (VSR). Reducing the speed of these ships would result in a 60% reduction in risk of whale strikes. The following analysis looks to quantify the economic benefits and costs of VSR. 
+The coast of California is home to a diverse marine ecosystem. Among the most important components are whales. Every year, over 20 whales are struck by container ships along the West Coast of the United States.[^1] The Santa Barbara Channel, off the coast of Calfiornia stretching from Point Conception to Point Mugu, is frequently visited by three endangered whale species: blue, fin and humpback. This is due to the unique location of the SB Channel where cold water from the north combines with warmer water from the south. Unfortunately, this channel is also a key shipping area for container ships. These ships transport 90% of the world's goods and travel through SB Channel more than 2,700 times every year[^2]. One proposed soltuion to reduce the frequency of whale strikes is the vessel speed reduction program (VSR). Reducing the speed of these ships would result in a 60% decrease in risk of whale strikes. The following analysis looks to quantify the economic benefits and costs of this VSR program. 
 
 
 ## METHODS
 \vspace{-10pt} 
 
-blah blah
+**Data**: A contingent valuation survey to 500 Santa Barbara County residents was given to determine the local demand for a VSR program. Variables measured are: (1) _risk_: level of risk reduction, (2) _bid_: annual payment for the household, (3) _vote_: 1 is yes, 0 is no, (4) _NEP_ : measure of environmental concern, (5) _age_: categorical, (6) _income_: categorical.[^3]   
+
+**Model**: Linear regression model of _vote_ on _age_, _income_, _NEP_, _bid_ and _risk_.[^4]
 
 
 
@@ -66,6 +68,11 @@ blah blah
 [^1]: Redfern et al., 2013 cited from WhaleStrikes Group Porject
 
 [^2]: Hakim, 2014 cited from WhaleStrikes Group Porject
+
+[^3]: WhaleStrikes Group Porject
+
+[^4]: See Technical Appendix 1; Linear model is used, instead of logistic, because the ease of interpretation.
+
 
 \newpage
 
